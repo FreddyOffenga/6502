@@ -1,0 +1,86 @@
+ATARI 8-BIT 6502 INSTRUCTION SET OPCODE MATRIX
+
+By F#READY
+
+Version 3.0
+
+    0     1     2     3     4     5     6     7     8     9     A     B     C     D     E     F
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+0| BRK | ORA | kil | slo | dop | ORA | ASL | slo | PHP | ORA | ASL | aac | top | ORA | ASL | slo |
+ | imp |(i,x)| imp |(i,x)| zpg | zpg | zpg | zpg | imp | imm |  a  | imm | abs | abs | abs | abs |
+ |1   7|2   6|1   -|2   8|2   3|2   3|2   5|2   5|1   3|2   2|1   2|2   2|3   4|3   4|3   6|3   6|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+1| BPL | ORA | kil | slo | dop | ORA | ASL | slo | CLC | ORA | nop | slo | top | ORA | ASL | slo |
+ | rel |(i),y| imp |(i),y|zpg,x|zpg,x|zpg,x|zpg,x| imp |abs,y| imp |abs,y|abs,x|abs,x|abs,x|abs,x|
+ |2  :2|2  .5|1   -|2   8|2   4|2   4|2   6|2   6|1   2|3  .4|1   2|3   7|3  .4|3  .4|3   7|3   7|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+2| JSR | AND | kil | rla | BIT | AND | ROL | rla | PLP | AND | ROL | aac | BIT | AND | ROL | rla |
+ | abs |(i,x)| imp |(i,x)| zpg | zpg | zpg | zpg | imp | imm |  a  | imm | abs | abs | abs | abs |
+ |3   6|2   6|1   -|2   8|2   3|2   3|2   5|2   5|1   4|2   2|1   2|2   2|3   4|3   4|3   6|3   6|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+3| BMI | AND | kil | rla | dop | AND | ROL | rla | SEC | AND | nop | rla | top | AND | ROL | rla |
+ | rel |(i),y| imp |(i),y|zpg,x|zpg,x|zpg,x|zpg,x| imp |abs,y| imp |abs,y|abs,x|abs,x|abs,x|abs,x|
+ |2  :2|2  .5|1   -|2   8|2   4|2   4|2   6|2   6|1   2|3  .4|1   2|3   7|3  .4|3  .4|3   7|3   7|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+4| RTI | EOR | kil | sre | dop | EOR | LSR | sre | PHA | EOR | LSR | asr | JMP | EOR | LSR | sre |
+ | imp |(i,x)| imp |(i,x)| zpg | zpg | zpg | zpg | imp | imm |  a  | imm | abs | abs | abs | abs |
+ |1   6|2   6|1   -|2   8|2   3|2   3|2   5|2   5|1   3|2   2|1   2|2   2|3   3|3   4|3   6|3   6|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+5| BVC | EOR | kil | sre | dop | EOR | LSR | sre | CLI | EOR | nop | sre | top | EOR | LSR | sre |
+ | rel |(i),y| imp |(i),y|zpg,x|zpg,x|zpg,x|zpg,x| imp |abs,y| imp |abs,y|abs,x|abs,x|abs,x|abs,x|
+ |2  :2|2  .5|1   -|2   8|2   4|2   4|2   6|2   6|1   2|3  .4|1   2|3   7|3  .4|3  .4|3   7|3   7|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+6| RTS | ADC | kil | rra | dop | ADC | ROR | rra | PLA | ADC | ROR | arr | JMP | ADC | ROR | rra |
+ | imp |(i,x)| imp |(i,x)| zpg | zpg | zpg | zpg | imp | imm |  a  | imm |(abs)| abs | abs | abs |
+ |1   6|2   6|1   -|2   8|2   3|2   3|2   5|2   5|1   4|2   2|1   2|2   2|3   5|3   4|3   6|3   6|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+7| BVS | ADC | kil | rra | dop | ADC | ROR | rra | SEI | ADC | nop | rra | top | ADC | ROR | rra |
+ | rel |(i),y| imp |(i),y|zpg,x|zpg,x|zpg,x|zpg,x| imp |abs,y| imp |abs,y|abs,x|abs,x|abs,x|abs,x|
+ |2  :2|2  .5|1   -|2   8|2   4|2   4|2   6|2   6|1   2|3  .4|1   2|3   7|3  .4|3  .4|3   7|3   7|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+8| dop | STA | dop | aax | STY | STA | STX | aax | DEY | dop | TXA | xaa | STY | STA | STX | aax |
+ | imm |(i,x)| imm |(i,x)| zpg | zpg | zpg | zpg | imp | imm | imp | imm | abs | abs | abs | abs |
+ |2   2|2   6|2   2|2   6|2   3|2   3|2   3|2   3|1   2|2   2|1   2|2   2|3   4|3   4|3   4|3   4|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+9| BCC | STA | kil | axa | STY | STA | STX | aax | TYA | STA | TXS | xas | sya | STA | sxa | axa |
+ | rel |(i),y| imp |(i),y|zpg,x|zpg,x|zpg,y|zpg,y| imp |abs,y| imp |abs,y|abs,x|abs,x|abs,y|abs,y|
+ |2  :2|2   6|1   -|2   6|2   4|2   4|2   4|2   4|1   2|3   5|1   2|3   5|3   5|3   5|3   5|3   5|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+A| LDY | LDA | LDX | lax | LDY | LDA | LDX | lax | TAY | LDA | TAX | atx | LDY | LDA | LDX | lax |
+ | imm |(i,x)| imm |(i,x)| zpg | zpg | zpg | zpg | imp | imm | imp | imm | abs | abs | abs | abs |
+ |2   2|2   6|2   2|2   6|2   3|2   3|2   3|2   3|1   2|2   2|1   2|2   2|3   4|3   4|3   4|3   4|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+B| BCS | LDA | kil | lax | LDY | LDA | LDX | lax | CLV | LDA | TSX | lar | LDY | LDA | LDX | lax |
+ | rel |(i),y| imp |(i),y|zpg,x|zpg,x|zpg,y|zpg,y| imp |abs,y| imp |abs,y|abs,x|abs,x|abs,y|abs,y|
+ |2  :2|2  .5|1   -|2  .5|2   4|2   4|2   4|2   4|1   2|3  .4|1   2|3  .4|3   4|3  .4|3  .4|3  .4|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+C| CPY | CMP | dop | dcp | CPY | CMP | DEC | dcp | INY | CMP | DEX | axs | CPY | CMP | DEC | dcp |
+ | imm |(i,x)| imm |(i,x)| zpg | zpg | zpg | zpg | imp | imm | imp | imm | abs | abs | abs | abs |
+ |2   2|2   6|2   2|2   8|2   3|2   3|2   5|2   5|1   2|2   2|1   2|2   2|3   4|3   4|3   6|3   6|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+D| BNE | CMP | kil | dcp | dop | CMP | DEC | dcp | CLD | CMP | nop | dcp | top | CMP | DEC | dcp |
+ | rel |(i),y| imp |(i),y|zpg,x|zpg,x|zpg,x|zpg,x| imp |abs,y| imp |abs,y|abs,x|abs,x|abs,x|abs,x|
+ |2  :2|2  .5|1   -|2   8|2   4|2   4|2   6|2   6|1   2|3  .4|1   2|3   7|3  .4|3  .4|3   7|3   7|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+E| CPX | SBC | dop | isc | CPX | SBC | INC | isc | INX | SBC | NOP | SBC | CPX | SBC | INC | isc |
+ | imm |(i,x)| imm |(i,x)| zpg | zpg | zpg | zpg | imp | imm | imp | imm | abs | abs | abs | abs |
+ |2   2|2   6|2   2|2   8|2   3|2   3|2   5|2   5|1   2|2   2|1   2|2   2|3   4|3   4|3   6|3   6|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+F| BEQ | SBC | kil | isc | dop | SBC | INC | isc | SED | SBC | nop | isc | top | SBC | INC | isc |
+ | rel |(i),y| imp |(i),y|zpg,x|zpg,x|zpg,x|zpg,x| imp |abs,y| imp |abs,y|abs,x|abs,x|abs,x|abs,x|
+ |2  :2|2  .5|1   -|2   8|2   4|2   4|2   6|2   6|1   2|3  .4|1   2|3   7|3  .4|3  .4|3   7|3   7|
+ +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+             +-----+                                          
+             | BRK | opcode                  . add 1 to N if page boundary is crossed
+             | imp | adressing mode          : add 1 to N if branch occurs to same page,
+             |1   7| bytes, cycles             add 2 to N if branch occurs to different page.
+             +-----+                                     
+
+             abs   : absolute addressing                   a   : accumulator addressing
+             abs,x : x indexed, absolute addressing        imp : implied addressing
+             abs,y : y indexed, absolute addressing        rel : relative addressing
+             (i),y : indirect addressing, y indexed        imm : immediate addressing
+             (i,x) : x indexed, indirect addressing        zpg : zero page addressing
+             zpg,x : x indexed, zero page addressing      (abs): absolute indirect
+
